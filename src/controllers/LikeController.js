@@ -23,9 +23,22 @@ module.exports = {
                 .json({error: 'Logged dev doesn`t exists'})
         }
 
-        // Caso eu tiver os dois salvo na lista 
+        if (fromDev.likes.includes(targetDevId) ) {
+            return res.status(400)
+                .json({message: 'Are you a hacker?'})
+        }
 
-        res.json([ 
+        fromDev.likes.push(targetDevId);
+
+        if (targetDev.likes.includes(fromDevId)) {
+            console.log('Deu match!! ');
+        }
+
+        await fromDev.save();
+        
+        // Caso eu tiver os dois salvo na lista 
+        res.json([
+            {message: 'sucesso!!'},
             targetDev,
             fromDev
         ]);
